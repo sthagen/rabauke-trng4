@@ -1,4 +1,4 @@
-// Copyright (c) 2000-2020, Heiko Bauke
+// Copyright (c) 2000-2021, Heiko Bauke
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -208,7 +208,6 @@ namespace trng {
     long operator()(long);
 
   private:
-  public:
     status_type S;
     static const char *const name_str;
 
