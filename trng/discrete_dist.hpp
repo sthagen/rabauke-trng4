@@ -144,7 +144,7 @@ namespace trng {
     // property methods
     int min() const { return 0; }
     int max() const { return static_cast<int>(P.N_ - 1); }
-    param_type param() const { return P; }
+    const param_type &param() const { return P; }
     void param(const param_type &P_new) { P = P_new; }
     void param(int x, double p) {
       x += static_cast<int>(P.offset_);
@@ -190,7 +190,7 @@ namespace trng {
     out.flags(std::ios_base::dec | std::ios_base::fixed | std::ios_base::left);
     out << '(' << P.N_ << ' ';
     for (std::vector<double>::size_type i{P.offset_}; i < P.P_.size(); ++i) {
-      out << std::setprecision(17) << P.P_[i];
+      out << std::setprecision(math::numeric_limits<double>::digits10 + 1) << P.P_[i];
       if (i + 1 < P.P_.size())
         out << ' ';
     }

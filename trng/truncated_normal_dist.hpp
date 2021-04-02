@@ -109,6 +109,18 @@ namespace trng {
 
       friend class truncated_normal_dist;
 
+      // EqualityComparable concept
+      friend TRNG_CUDA_ENABLE inline bool operator==(const param_type &P1,
+                                                     const param_type &P2) {
+        return P1.mu_ == P2.mu_ and P1.sigma_ == P2.sigma_ and P1.a_ == P2.a_ and
+               P1.b_ == P2.b_;
+      }
+
+      friend TRNG_CUDA_ENABLE inline bool operator!=(const param_type &P1,
+                                                     const param_type &P2) {
+        return not(P1 == P2);
+      }
+
       // Streamable concept
       template<typename char_t, typename traits_t>
       friend std::basic_ostream<char_t, traits_t> &operator<<(
@@ -166,7 +178,7 @@ namespace trng {
     TRNG_CUDA_ENABLE
     result_type max() const { return P.b(); }
     TRNG_CUDA_ENABLE
-    param_type param() const { return P; }
+    const param_type &param() const { return P; }
     TRNG_CUDA_ENABLE
     void param(const param_type &p_new) { P = p_new; }
     TRNG_CUDA_ENABLE
@@ -208,24 +220,6 @@ namespace trng {
       return math::inv_Phi(x) * P.sigma() + P.mu();
     }
   };
-
-  // -------------------------------------------------------------------
-
-  // EqualityComparable concept
-  template<typename float_t>
-  TRNG_CUDA_ENABLE inline bool operator==(
-      const typename truncated_normal_dist<float_t>::param_type &P1,
-      const typename truncated_normal_dist<float_t>::param_type &P2) {
-    return P1.mu() == P2.mu() and P1.sigma() == P2.sigma() and P1.a() == P2.a() and
-           P1.b() == P2.b();
-  }
-
-  template<typename float_t>
-  TRNG_CUDA_ENABLE inline bool operator!=(
-      const typename truncated_normal_dist<float_t>::param_type &P1,
-      const typename truncated_normal_dist<float_t>::param_type &P2) {
-    return not(P1 == P2);
-  }
 
   // -------------------------------------------------------------------
 

@@ -138,7 +138,7 @@ namespace trng {
     // property methods
     int min() const { return 0; }
     int max() const { return P.N - 1; }
-    param_type param() const { return P; }
+    const param_type &param() const { return P; }
     void param(const param_type &P_new) { P = P_new; }
     // probability density function
     double pdf(int x) const { return (x < 0 or x >= P.N) ? 0.0 : P.P[x]; }
@@ -172,7 +172,7 @@ namespace trng {
     out.flags(std::ios_base::dec | std::ios_base::fixed | std::ios_base::left);
     out << '(' << P.N << ' ';
     for (std::vector<double>::size_type i = 0; i < P.P.size(); ++i) {
-      out << std::setprecision(17) << P.P[i];
+      out << std::setprecision(math::numeric_limits<double>::digits10 + 1) << P.P[i];
       if (i + 1 < P.P.size())
         out << ' ';
     }

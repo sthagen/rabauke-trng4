@@ -90,8 +90,8 @@ namespace trng {
     // random numbers
     template<typename R>
     int operator()(R &r) {
-      double p(utility::uniformco<double>(r));
-      const std::size_t x(utility::discrete(p, P.P_.begin(), P.P_.end()));
+      double p{utility::uniformco<double>(r)};
+      const std::size_t x{utility::discrete(p, P.P_.begin(), P.P_.end())};
       int x_i{static_cast<int>(x)};
       if (x + 1 == P.P_.size()) {
         p -= cdf(x_i);
@@ -110,7 +110,7 @@ namespace trng {
     // property methods
     int min() const { return 0; }
     int max() const { return math::numeric_limits<int>::max(); }
-    param_type param() const { return P; }
+    const param_type &param() const { return P; }
     void param(const param_type &P_new) { P = P_new; }
     double mu() const { return P.mu(); }
     void mu(double mu_new) { P.mu(mu_new); }
@@ -138,7 +138,8 @@ namespace trng {
                                                    const poisson_dist::param_type &P) {
     std::ios_base::fmtflags flags(out.flags());
     out.flags(std::ios_base::dec | std::ios_base::fixed | std::ios_base::left);
-    out << '(' << std::setprecision(17) << P.mu() << ')';
+    out << '(' << std::setprecision(math::numeric_limits<double>::digits10 + 1) << P.mu()
+        << ')';
     out.flags(flags);
     return out;
   }

@@ -72,6 +72,17 @@ namespace trng {
 
       friend class extreme_value_dist;
 
+      // EqualityComparable concept
+      friend TRNG_CUDA_ENABLE inline bool operator==(const param_type &P1,
+                                                     const param_type &P2) {
+        return P1.theta_ == P2.theta_ and P1.eta_ == P2.eta_;
+      }
+
+      friend TRNG_CUDA_ENABLE inline bool operator!=(const param_type &P1,
+                                                     const param_type &P2) {
+        return not(P1 == P2);
+      }
+
       // Streamable concept
       template<typename char_t, typename traits_t>
       friend std::basic_ostream<char_t, traits_t> &operator<<(
@@ -126,7 +137,7 @@ namespace trng {
     TRNG_CUDA_ENABLE
     result_type max() const { return math::numeric_limits<result_type>::infinity(); }
     TRNG_CUDA_ENABLE
-    param_type param() const { return P; }
+    const param_type &param() const { return P; }
     TRNG_CUDA_ENABLE
     void param(const param_type &P_new) { P = P_new; }
     TRNG_CUDA_ENABLE
@@ -167,23 +178,6 @@ namespace trng {
       return P.eta() + P.theta() * math::ln(-math::ln(1 - x));
     }
   };
-
-  // -------------------------------------------------------------------
-
-  // EqualityComparable concept
-  template<typename float_t>
-  TRNG_CUDA_ENABLE inline bool operator==(
-      const typename extreme_value_dist<float_t>::param_type &P1,
-      const typename extreme_value_dist<float_t>::param_type &P2) {
-    return P1.theta() == P2.theta() and P1.eta() == P2.eta();
-  }
-
-  template<typename float_t>
-  TRNG_CUDA_ENABLE inline bool operator!=(
-      const typename extreme_value_dist<float_t>::param_type &P1,
-      const typename extreme_value_dist<float_t>::param_type &P2) {
-    return not(P1 == P2);
-  }
 
   // -------------------------------------------------------------------
 

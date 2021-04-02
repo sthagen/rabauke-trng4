@@ -1,4 +1,4 @@
-// Copyright (c) 2000-2020, Heiko Bauke
+// Copyright (c) 2000-2021, Heiko Bauke
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -40,6 +40,7 @@
 #include <trng/generate_canonical.hpp>
 #include <trng/lcg64.hpp>
 #include <trng/lcg64_shift.hpp>
+#include <trng/lcg64_count_shift.hpp>
 #include <trng/mrg2.hpp>
 #include <trng/mrg3.hpp>
 #include <trng/mrg3s.hpp>
@@ -223,6 +224,10 @@ int main() {
     {
       trng::lcg64_shift r;
       time_main(r, "trng::lcg64_shift");
+    }
+    {
+      trng::lcg64_count_shift r;
+      time_main(r, "trng::lcg64_count_shift");
     }
     {
       trng::mrg2 r;

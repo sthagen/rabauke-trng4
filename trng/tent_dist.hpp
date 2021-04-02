@@ -72,6 +72,17 @@ namespace trng {
 
       friend class tent_dist;
 
+      // EqualityComparable concept
+      friend TRNG_CUDA_ENABLE inline bool operator==(const param_type &P1,
+                                                     const param_type &P2) {
+        return P1.m_ == P2.m_ and P1.d_ == P2.d_;
+      }
+
+      friend TRNG_CUDA_ENABLE inline bool operator!=(const param_type &P1,
+                                                     const param_type &P2) {
+        return not(P1 == P2);
+      }
+
       // Streamable concept
       template<typename char_t, typename traits_t>
       friend std::basic_ostream<char_t, traits_t> &operator<<(
@@ -132,7 +143,7 @@ namespace trng {
     TRNG_CUDA_ENABLE
     result_type max() const { return P.m() + P.d(); }
     TRNG_CUDA_ENABLE
-    param_type param() const { return P; }
+    const param_type &param() const { return P; }
     TRNG_CUDA_ENABLE
     void param(const param_type &p_new) { P = p_new; }
     TRNG_CUDA_ENABLE
@@ -175,21 +186,6 @@ namespace trng {
       return icdf_(x);
     }
   };
-
-  // -------------------------------------------------------------------
-
-  // EqualityComparable concept
-  template<typename float_t>
-  TRNG_CUDA_ENABLE inline bool operator==(const typename tent_dist<float_t>::param_type &P1,
-                                          const typename tent_dist<float_t>::param_type &P2) {
-    return P1.m() == P2.m() and P1.d() == P2.d();
-  }
-
-  template<typename float_t>
-  TRNG_CUDA_ENABLE inline bool operator!=(const typename tent_dist<float_t>::param_type &P1,
-                                          const typename tent_dist<float_t>::param_type &P2) {
-    return not(P1 == P2);
-  }
 
   // -------------------------------------------------------------------
 

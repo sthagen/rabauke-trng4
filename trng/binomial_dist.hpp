@@ -116,7 +116,7 @@ namespace trng {
     // property methods
     int min() const { return 0; }
     int max() const { return P.n(); }
-    param_type param() const { return P; }
+    const param_type &param() const { return P; }
     void param(const param_type &P_new) { P = P_new; }
     double p() const { return P.p(); }
     void p(double p_new) { P.p(p_new); }
@@ -158,7 +158,8 @@ namespace trng {
                                                    const binomial_dist::param_type &P) {
     std::ios_base::fmtflags flags(out.flags());
     out.flags(std::ios_base::dec | std::ios_base::fixed | std::ios_base::left);
-    out << '(' << std::setprecision(17) << P.p() << ' ' << P.n() << ')';
+    out << '(' << std::setprecision(math::numeric_limits<double>::digits10 + 1) << P.p() << ' '
+        << P.n() << ')';
     out.flags(flags);
     return out;
   }

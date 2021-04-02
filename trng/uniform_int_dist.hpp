@@ -105,7 +105,7 @@ namespace trng {
     TRNG_CUDA_ENABLE
     result_type max() const { return P.b() - 1; }
     TRNG_CUDA_ENABLE
-    param_type param() const { return P; }
+    const param_type &param() const { return P; }
     TRNG_CUDA_ENABLE
     void param(const param_type &p_new) { P = p_new; }
     TRNG_CUDA_ENABLE
@@ -138,13 +138,13 @@ namespace trng {
 
   // EqualityComparable concept
   TRNG_CUDA_ENABLE
-  bool operator==(const uniform_int_dist::param_type &P1,
-                  const uniform_int_dist::param_type &P2) {
+  inline bool operator==(const uniform_int_dist::param_type &P1,
+                         const uniform_int_dist::param_type &P2) {
     return P1.a() == P2.a() and P1.b() == P2.b();
   }
   TRNG_CUDA_ENABLE
-  bool operator!=(const uniform_int_dist::param_type &P1,
-                  const uniform_int_dist::param_type &P2) {
+  inline bool operator!=(const uniform_int_dist::param_type &P1,
+                         const uniform_int_dist::param_type &P2) {
     return not(P1 == P2);
   }
 
@@ -176,11 +176,11 @@ namespace trng {
 
   // EqualityComparable concept
   TRNG_CUDA_ENABLE
-  bool operator==(const uniform_int_dist &g1, const uniform_int_dist &g2) {
+  inline bool operator==(const uniform_int_dist &g1, const uniform_int_dist &g2) {
     return g1.param() == g2.param();
   }
   TRNG_CUDA_ENABLE
-  bool operator!=(const uniform_int_dist &g1, const uniform_int_dist &g2) {
+  inline bool operator!=(const uniform_int_dist &g1, const uniform_int_dist &g2) {
     return g1.param() != g2.param();
   }
 
