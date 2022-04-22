@@ -1,4 +1,4 @@
-// Copyright (c) 2000-2021, Heiko Bauke
+// Copyright (c) 2000-2022, Heiko Bauke
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -34,6 +34,7 @@
 
 #define TRNG_LCG64_SHIFT_HPP
 
+#include <trng/trng_export.hpp>
 #include <trng/cuda.hpp>
 #include <trng/limits.hpp>
 #include <trng/utility.hpp>
@@ -83,7 +84,7 @@ namespace trng {
 
     public:
       parameter_type() = default;
-      explicit parameter_type(result_type a, result_type b) : a{a}, b{b} {};
+      explicit parameter_type(result_type a, result_type b) : a{a}, b{b} {}
 
       friend class lcg64_shift;
 
@@ -122,7 +123,7 @@ namespace trng {
 
     public:
       status_type() = default;
-      explicit status_type(result_type r) : r{r} {};
+      explicit status_type(result_type r) : r{r} {}
 
       friend class lcg64_shift;
 
@@ -155,10 +156,10 @@ namespace trng {
       }
     };
 
-    static const parameter_type Default;
-    static const parameter_type LEcuyer1;
-    static const parameter_type LEcuyer2;
-    static const parameter_type LEcuyer3;
+    static TRNG4_EXPORT const parameter_type Default;
+    static TRNG4_EXPORT const parameter_type LEcuyer1;
+    static TRNG4_EXPORT const parameter_type LEcuyer2;
+    static TRNG4_EXPORT const parameter_type LEcuyer3;
 
     // Random number engine concept
     explicit lcg64_shift(parameter_type = Default);

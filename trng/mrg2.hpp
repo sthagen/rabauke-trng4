@@ -1,4 +1,4 @@
-// Copyright (c) 2000-2021, Heiko Bauke
+// Copyright (c) 2000-2022, Heiko Bauke
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -34,6 +34,7 @@
 
 #define TRNG_MRG2_HPP
 
+#include <trng/trng_export.hpp>
 #include <trng/cuda.hpp>
 #include <trng/utility.hpp>
 #include <trng/int_types.hpp>
@@ -67,8 +68,8 @@ namespace trng {
     using parameter_type = mrg_parameter<result_type, 2, mrg2>;
     using status_type = mrg_status<result_type, 2, mrg2>;
 
-    static const parameter_type LEcuyer1;
-    static const parameter_type LEcuyer2;
+    static TRNG4_EXPORT const parameter_type LEcuyer1;
+    static TRNG4_EXPORT const parameter_type LEcuyer2;
 
     // Random number engine concept
     explicit mrg2(parameter_type = LEcuyer1);

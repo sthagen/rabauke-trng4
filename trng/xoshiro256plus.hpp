@@ -1,4 +1,4 @@
-// Copyright (c) 2000-2021, Heiko Bauke
+// Copyright (c) 2000-2022, Heiko Bauke
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -70,7 +70,7 @@ namespace trng {
     public:
       status_type() = default;
       explicit status_type(result_type r0, result_type r1, result_type r2, result_type r3)
-          : r{r0, r1, r2, r3} {};
+          : r{r0, r1, r2, r3} {}
 
     private:
       struct eye {};

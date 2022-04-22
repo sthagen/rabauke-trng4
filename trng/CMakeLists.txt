@@ -1,4 +1,7 @@
+include(GenerateExportHeader)
+
 set(HEADER_FILES
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/trng_export.hpp>
         bernoulli_dist.hpp
         beta_dist.hpp
         binomial_dist.hpp
@@ -91,36 +94,24 @@ set(SOURCE_FILES
         yarn5s.cc
         )
 
-add_library(trng4 ${HEADER_FILES} ${SOURCE_FILES})
-set_target_properties(trng4 PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+add_library(trng4 ${SOURCE_FILES})
+add_library(trng4::trng4 ALIAS trng4)
+set_target_properties(trng4 PROPERTIES EXPORT_NAME trng4)
+
+generate_export_header(trng4 EXPORT_FILE_NAME trng_export.hpp)
 target_include_directories(trng4 PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
-        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/..>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
         )
 
-if (BUILD_SHARED_LIBS)
-    if (WIN32)
-        message(FATAL_ERROR "Building a shared library on Windows is not supported.")
-    endif ()
-    set_target_properties(trng4 PROPERTIES VERSION ${PROJECT_VERSION})
-    set_target_properties(trng4 PROPERTIES SOVERSION 24)
-    set_target_properties(trng4 PROPERTIES PUBLIC_HEADER "${HEADER_FILES}")
-endif ()
+set_target_properties(trng4 PROPERTIES VERSION ${PROJECT_VERSION})
+set_target_properties(trng4 PROPERTIES SOVERSION ${PROJECT_VERSION_MINOR})
+set_target_properties(trng4 PROPERTIES PUBLIC_HEADER "${HEADER_FILES}")
 
 install(TARGETS trng4
         EXPORT "${targets_export_name}"
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/trng)
-
-find_program(PVS_STUDIO pvs-studio)
-
-if (PVS_STUDIO)
-    list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/../cmake/PVS-Studio)
-    include(../cmake/PVS-Studio/PVS-Studio.cmake)
-
-    pvs_studio_add_target(TARGET ${PROJECT_NAME}.analyze # ALL
-            ANALYZE trng4
-            OUTPUT FORMAT errorfile
-            LOG ${PROJECT_NAME}.err)
-endif ()

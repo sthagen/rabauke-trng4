@@ -1,4 +1,4 @@
-// Copyright (c) 2000-2021, Heiko Bauke
+// Copyright (c) 2000-2022, Heiko Bauke
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,7 @@ namespace trng {
 
     public:
       status_type() = default;
-      explicit status_type(result_type r) : r{r} {};
+      explicit status_type(result_type r) : r{r} {}
 
       friend class minstd;
 
