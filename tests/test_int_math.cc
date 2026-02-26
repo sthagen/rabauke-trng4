@@ -1,4 +1,4 @@
-// Copyright (c) 2000-2024, Heiko Bauke
+// Copyright (c) 2000-2026, Heiko Bauke
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -36,9 +36,11 @@
 #include <utility>
 #include <limits>
 #include <cmath>
+#if defined _MSC_VER && __cpluplus <= 201703
 #include <ciso646>
+#endif
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include <trng/int_math.hpp>
 

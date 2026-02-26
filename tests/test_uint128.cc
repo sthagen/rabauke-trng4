@@ -1,4 +1,4 @@
-// Copyright (c) 2000-2024, Heiko Bauke
+// Copyright (c) 2000-2026, Heiko Bauke
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -31,7 +31,7 @@
 // OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <iostream>
 #include <iomanip>
 #include <sstream>
